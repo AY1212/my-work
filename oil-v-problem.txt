@@ -1,0 +1,56 @@
+#include<iostream>
+#include<iomanip> 
+#include  <cmath>
+
+using namespace std;
+
+const  double  PI = 3.1415926;
+class cylinder
+{
+public:
+	double  getvolumn();
+	double getarea();
+	cylinder(double h, double r);
+	~cylinder();
+private:
+	double r, h;
+};
+inline double cylinder::getvolumn()
+{
+	double v;
+	v = PI * pow(r, 2) * h;
+	return v;
+}
+inline double cylinder::getarea()
+{
+	double area;
+	area = 2 * PI * pow(r, 2) + 2 * PI * r * h;
+	return area;
+}
+cylinder::cylinder(double H, double R)
+{
+	cout << "构造函数被调用" << endl;
+	r = R;
+	h = H;
+}
+cylinder::~cylinder()
+{
+	cout << "析构函数被调用";
+}
+int main()
+
+{
+
+	double d, h;
+
+	cin >> d >> h;
+
+	cylinder can(h, d / 2);
+
+	cout << fixed << setprecision(6);
+
+	cout << "油桶的容积是" << can.getvolumn() << " " << endl;
+
+	cout << "铁皮的面积是" << can.getarea() << endl;
+
+}
