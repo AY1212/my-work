@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+int buy(int a, int b, int c, int d)
+{
+	int x, y, z, n, i;
+	x = (a + c + b) / 2;
+	y = (a + c + b) % 2;
+	z = (a + c + d) / 3;
+	n = (a + c + d) % 3;
+	if (x == 0 && z == 0) i = 0;
+	else i = x + z + buy(x, y, z, n);
+	return i;
+}
+int main()
+{
+	int a, b, c, d, x, y;
+	cin >> x;
+	a = x / 2;
+	c = x / 3;
+	b = x % 2;
+	d = x % 3;
+	y = x + a + c + buy(a, b, c, d);
+	cout << y;
+}
