@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+//判断是否为素数
+int isPrime(long num)
+{
+int i=2;
+	for(;i<num;i++)
+	{
+		if(num%i==0)return 1;
+	}
+	return 2;
+
+}
+
+//计算质因素分解，
+void factorization(long n,long factor[100],int &numofFactor
+)
+{
+int k=0,j=2;
+for(k=0;n>=1;j++)
+{
+if(isPrime(n)==2)
+{
+numofFactor+=k+1;
+factor[k]=n;
+return;
+}
+else if(n%j==0)
+{
+n=n/j;
+factor[k]=j;
+k++;
+j=1;
+}
+}
+
+    return;
+}
+
+int main()
+{
+    long n;
+    long factor[100];
+    int numofFactor = 0;
+    cin >> n;
+    factorization(n, factor, numofFactor);
+    for (int i = 0; i < numofFactor; i++)
+    {
+        cout << factor[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}
