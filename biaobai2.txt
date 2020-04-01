@@ -1,0 +1,160 @@
+#define IdYes 1002
+#define IdNo 1003
+#define IdStatic 1004
+#define IdTimer 1005
+#define Width 640
+#define Height 480
+#define Tick 2000
+#include<windows.h>
+int x,y;
+RECT rdesk;
+HINSTANCE hinst;
+HWND hyes,hno;
+BOOL quit=FALSE;
+LRESULT CALLBACK WndProc(HWND hwnd,UINT Message,WPARAM wParam,LPARAM lParam) 
+{
+	HDC hdc;
+	PAINTSTRUCT ps;
+	RECT rclient; 
+	HBRUSH hbrbkgnd; 
+    	static COLORREF c;
+    	static BYTE r,g,b;
+    
+	switch(Message) 
+	{
+		case WM_TIMER: 
+			if(IdTimer==LOWORD(wParam)) 
+		    { 
+		    	r=(BYTE)(rand()%256);
+				g=(BYTE)(rand()%256);
+				b=(BYTE)(rand()%256);
+		    	c=RGB(r,g,b);
+				InvalidateRect(hwnd,NULL,TRUE);
+				UpdateWindow(hwnd);	 
+		    }
+			break;
+		case WM_PAINT:
+			hdc=BeginPaint(hwnd,&ps);
+			hbrbkgnd=CreateSolidBrush(c); 
+ 			SelectObject(hdc,hbrbkgnd);
+			GetClientRect(hwnd,&rclient);  
+            FillRect(hdc,&rclient,hbrbkgnd);
+            DeleteObject(hbrbkgnd);
+            EndPaint(hwnd,&ps);
+			break; 		
+		case WM_COMMAND:
+			switch(LOWORD(wParam))
+			{
+				case IdYes:
+					quit=TRUE;
+					MessageBox(hwnd,TEXT("回答正确，太太太好了！"),TEXT("宝贝"),MB_ICONEXCLAMATION|MB_OK);	
+					SendMessage(hwnd,WM_CLOSE,0,0);
+					break;
+				case IdNo:
+					MessageBox(hwnd,TEXT("回答错误哦，我很生气呢！"),TEXT("宝贝"),MB_ICONEXCLAMATION|MB_OK);	
+					break;	
+			}
+			break;
+		case WM_SIZE:	
+		case WM_MOVE: 
+			SetWindowPos(hwnd,HWND_TOPMOST,x,y,Width,Height,SWP_SHOWWINDOW);
+			break;		 
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+		case WM_CLOSE:
+			if(quit)
+			{
+				KillTimer(hwnd,IdTimer);
+				DestroyWindow(hwnd);
+			}	 
+			break; 		 
+		case WM_CREATE:
+			CreateWindow(TEXT("Static"),
+				TEXT("请回答：做我女朋友好吗？"),
+				WS_CHILD|WS_VISIBLE|SS_CENTER,
+				200,
+				200,
+				240,
+				20,
+				hwnd,
+				(HMENU)IdStatic,
+				hinst,
+				NULL
+				);
+				hyes=CreateWindow(TEXT("Button"),
+				TEXT("好"),
+				WS_CHILD|WS_VISIBLE|BS_CENTER,
+				270,
+				230,
+				45,
+				20,
+				hwnd,
+				(HMENU)IdYes,
+				hinst,
+				NULL
+				);
+				hno=CreateWindow(TEXT("Button"),
+				TEXT("不好"),
+				WS_CHILD|WS_VISIBLE|BS_CENTER,
+				325,
+				230,
+				45,
+				20,
+				hwnd,
+				(HMENU)IdNo,
+				hinst,
+				NULL
+				);
+			SetTimer(hwnd,IdTimer,Tick,NULL);
+			break;
+		default:
+			return DefWindowProc(hwnd,Message,wParam,lParam);
+	}
+	return 0;
+}
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
+{
+	WNDCLASSEX wc;
+	HWND hwnd;
+	MSG msg;
+	hinst=hInstance;
+	srand(time(NULL));
+	memset(&wc,0,sizeof(wc));
+	wc.cbSize=sizeof(WNDCLASSEX);
+	wc.lpfnWndProc=WndProc;
+	wc.hInstance=hInstance;
+	wc.hCursor=LoadCursor(NULL,IDC_ARROW);
+	wc.hbrBackground=(HBRUSH)(COLOR_WINDOW+1);
+	wc.lpszClassName=TEXT("WindowClass");
+	wc.hIcon=LoadIcon(NULL,IDI_APPLICATION);
+	wc.hIconSm=LoadIcon(NULL,IDI_APPLICATION);
+	if(!RegisterClassEx(&wc)) 
+	{
+		MessageBox(NULL,TEXT("窗口注册失败！"),TEXT("错误"),MB_ICONEXCLAMATION|MB_OK);
+		return 0;
+	}
+	GetWindowRect(GetDesktopWindow(),&rdesk);
+	x=(rdesk.right-Width)/2;
+	y=(rdesk.bottom-Height)/2,
+	hwnd = CreateWindowEx(WS_EX_TOPMOST,
+		TEXT("WindowClass"),
+		TEXT("I Love You"),
+		WS_THICKFRAME|WS_VISIBLE,
+		x,
+		y,
+		Width,
+		Height,
+		NULL,NULL,hInstance,NULL);
+	if(NULL==hwnd)
+	{
+		MessageBox(NULL,TEXT("窗口创建失败！"),TEXT("错误！"),MB_ICONEXCLAMATION|MB_OK);
+		return 0;
+	}
+	while(GetMessage(&msg,NULL,0,0)>0) 
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+	return msg.wParam;
+}
