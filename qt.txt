@@ -1,0 +1,48 @@
+Qt 是一个1991年由Qt Company开发的跨平台C++图形用户界面应用程序开发框架。它既可以开发GUI程序，也可用于开发非GUI程序，比如控制台工具和服务器。Qt是面向对
+象的框架，使用特殊的代码生成扩展(称为元对象编译器(Meta Object Compiler, moc))以及一些宏，Qt很容易扩展，并且允许真正地组件编程。2008年，Qt Company科技被诺
+基亚公司收购，Qt也因此成为诺基亚旗下的编程语言工具。2012年，Qt被Digia收购。2014年4月，跨平台集成开发环境Qt Creator 3.1.0正式发布，实现了对于iOS的完全支持，
+新增WinRT、Beautifier等插件，废弃了无Python接口的GDB调试支持，集成了基于Clang的C/C++代码模块，并对Android支持做出了调整，至此实现了全面支持iOS、Android
+、WP,它提供给应用程序开发者建立艺术级的图形用户界面所需的所有功能。基本上，Qt 同 X Window 上的 Motif，Openwin，GTK 等图形界 面库和 Windows 平台上的 MFC
+，OWL，VCL，ATL 是同类型的东西。
+Qt支持下述平台:
+
+MS/Windows - 95、98、NT4.0、ME、2000、XP 、 Vista、Win7、win8、win2008、win10
+
+Unix/X11 -Linux、SunSolaris、HP-UX、CompaqTru64 UNIX、IBMAIX、SGI IRIX、FreeBSD、BSD/OS和其它很多X11平台
+
+Macintosh -Mac OS X
+
+Embedded - 有帧缓冲(framebuffer)支持的嵌入式Linux平台，Windows CE、Symbian、Symbian^3、Symbian Anna、Symbian Belle、MeeGo、haiku-os。优良的跨平台特性:
+
+Qt支持下列操作系统: Microsoft Windows 95/98， Microsoft Windows NT， Linux， Solaris， SunOS， HP-UX， Digital UNIX (OSF/1， Tru64)， Irix， FreeBSD， BSD/OS， SCO， AIX， OS390，QNX 等等。
+
+面向对象
+
+Qt 的良好封装机制使得 Qt 的模块化程度非常高，可重用性较好，对于用户开发来说是非常 方便的。 Qt 提供了一种称为 signals/slots 的安全类型来替代 callback，这使得各个元件 之间的协同工作变得十分简单。
+
+丰富的 API
+
+Qt 包括多达 250 个以上的 C++ 类，还提供基于模板的 collections， serialization， file， I/O device， directory management， date/time 类。甚至还包括正则表达式的处理 功能。
+
+支持 2D/3D 图形渲染，支持 OpenGL
+
+大量的开发文档
+
+XML 支持。
+在Debian系列Linux系统下，比如Ubuntu系统下
+
+sudo apt-get install qt4-dev-tools #开发包
+Qt
+Qt
+
+sudo apt-get install qtcreator #IDE
+
+sudo apt-get install qt4-doc #开发帮助文档
+
+sudo apt-get install qt4-qtconfig #配置工具
+
+sudo apt-get install qt4-demos #DEMO源码
+
+或者直接从Qt官方网站下载.run格式的安装包，Windows下直接双击安装，Linux下进入安装包所在目录后用 ./ 安装。
+
+折叠
