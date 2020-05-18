@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+float cal_power(float x, int n)
+{
+        float p=1.0;
+        while(n>0)
+        {
+                p=p*x;
+                n--;
+        }
+        return p;
+}
+
+float  cal_money(int loan, float rate, int month)
+{
+        float temp;
+        temp=cal_power(1+rate,month);
+        return loan*rate*temp/(temp-1);
+}
+
+int main(void)
+{
+        int loan,year,month;
+        float money,rate;/*利率*/
+        printf("请输入贷款金额: ");
+        scanf("%d",&loan);
+        printf("贷款利率为: ");
+        scanf("%f",&rate);
+
+        for(year=1;year<=5;year++)
+        {
+                month=12*year;
+                money=cal_money(loan,rate,month);
+                printf("money(%d,%d)=%.0f\n",loan,year,money);
+        }
+
+        return 0;
+}
